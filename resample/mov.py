@@ -31,7 +31,7 @@
 import os
 import struct
 
-from rescene.utility import is_rar
+from rescene.utility import sep, is_rar
 from rescene.rarstream import RarStream
 
 BE_LONG = struct.Struct('>L')  # unsigned long: 4 bytes
@@ -127,8 +127,9 @@ class MovReader(object):
 		end_offset = atom_start_position + atom_length
 		if (self.mode == MovReadMode.Sample and self.atom_type != b"mdat" and
 			end_offset > self._file_length):
-			raise InvalidDataException("Invalid box length at 0x%08X" %
-			                           atom_start_position)
+			err = "Invalid box length at 0x%08X\n" % atom_start_position
+			err += "\tFound: %s bytes" % sep(self._file_length)
+			raise InvalidDataException(err)
 
 		self.current_atom = Atom(atom_length, self.atom_type)
 		self.current_atom.raw_header = self._atom_header
