@@ -347,10 +347,13 @@ class EbmlReader(object):
 # 			raise ValueError("Missing data")
 		(data_length_descriptor,) = BE_BYTE.unpack(read_byte)
 		data_length_descriptor = GetUIntLength(data_length_descriptor)
+		if data_length_descriptor == 0:
+			return False
 		self.element_header += read_byte
 		self.element_header += self._ebml_stream.read(data_length_descriptor - 1)
 
-		assert id_length_descriptor + data_length_descriptor == len(self.element_header)
+		assert (id_length_descriptor + data_length_descriptor 
+		    == len(self.element_header)), "bad data length descriptor"
 
 		# 3) Data -------------------------------------------------------------
 		eh = self.element_header[0:id_length_descriptor]
