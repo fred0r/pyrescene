@@ -49,7 +49,7 @@ def main(options):
 		subdirs = os.path.relpath(dirpath, indir)
 		for pfile in filenames:
 			if pfile.lower().endswith(
-					(".avi", ".mkv", ".wmv", ".mp4", ".vob", ".m2ts")):
+					(".avi", ".mkv", ".wmv", ".mp4", ".vob", ".m2ts", ".mov")):
 				create_srs(dirpath, pfile, outdir, subdirs, options.always_no)
 
 def create_srs(sample_dir, sample_file, output_dir, path, keep):
@@ -66,7 +66,8 @@ def create_srs(sample_dir, sample_file, output_dir, path, keep):
 	keep_txt = False
 	try:
 		overwrite_param = "" if keep else "-y"
-		srsmain([sample, overwrite_param, "-o", dest_dir], True)
+		error_code = srsmain([sample, overwrite_param, "-o", dest_dir], True)
+		print(error_code)
 	except ValueError:
 		keep_txt = True
 
