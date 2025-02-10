@@ -204,7 +204,8 @@ def file_type_info(ifile):
 		return FileType(FileType.MP3, archived_file_name)
 	else:
 		(sync,) = BE_SHORT.unpack_from(marker, 0)
-		if sync & 0xFFE0 == 0xFFE0:  # regular and valid mp3 music data start
+		# tv2lax9-arlettaav.sample.vob starts with FFFFFF...
+		if sync & 0xFFE0 == 0xFFE0 and not ifile.endswith(".vob"):  # regular and valid mp3 music data start
 			return FileType(FileType.MP3, archived_file_name)
 
 		# last attempt to detect an MP3 file by using the ID3v1 tag
