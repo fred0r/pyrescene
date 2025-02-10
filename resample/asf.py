@@ -355,7 +355,7 @@ def asf_data_get_packet(packet, packet_size, mode=AsfReadMode.Sample):
 
 	# Error correction data ---------------------------------------------------
 	flags = S_BYTE.unpack_from(packet.data, read)[0]
-	assert flags == 0x82
+	assert flags == 0x82, "expected 0x82 at start error correction packet"
 	read += 1
 
 	if flags & 0x80:
