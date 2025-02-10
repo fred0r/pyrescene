@@ -253,8 +253,7 @@ def main(argv=None, no_exit=False):
 					       "in file: %s\n" % os.path.basename(ifile))
 					file_size = os.path.getsize(ifile)
 					msg += ("File size: %s bytes\n" % sep(file_size))
-					if is_rar(ifile) or file_size == 0:
-						show_help = False
+					show_help = False
 			else:
 				msg = "Input file not found: %s\n" % os.path.basename(ifile)
 				if _DEBUG:
