@@ -648,9 +648,9 @@ def main(argv=None, no_exit=False):
 		if fault == "":
 			fault = "AssertionError"  # must never occur!
 		if fault.endswith("Aborting"):
-			pexit(2, "Corruption detected: %s\n" % fault)
+			pexit(2, "Corruption detected: %s. Aborting.\n" % fault)
 		else:
-			exit(2, "Corruption detected: %s. Aborting.\n" % fault)
+			pexit(2, "Corruption detected: %s\n" % fault)
 	except fpcalc.ExecutableNotFound as err:
 		pexit(3, str(err))
 	except AttributeError as err:
