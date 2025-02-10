@@ -831,8 +831,8 @@ class Parser:
                 "Expected block CRC 0x{:04X}".format(calc_crc))
         return (pos, hdr, btype, flags)
     
-    def expect_type(self, pos, _btype, expect, name):
-        if expect != type:
+    def expect_type(self, pos, btype, expect, name):
+        if expect != btype:
             self.die(pos + HDR_TYPE_POS,
                 "Expected block type 0x{:02X} ({})".format(expect, name))
         
